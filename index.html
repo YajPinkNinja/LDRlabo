@@ -1,0 +1,60 @@
+<h1>Met hysterisis:</h1>
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">ldr</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">A5;</span>
+    <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">led</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">9</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">pot</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">A3;</span>
+    
+    <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">state</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
+    
+    <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">Serial.begin(</span><span style="color: #ae81ff">9600</span><span style="color: #f8f8f2">);</span>
+      <span style="color: #f8f8f2">pinMode(led,</span> <span style="color: #f8f8f2">OUTPUT);</span>
+      <span style="color: #f8f8f2">pinMode(ldr,</span> <span style="color: #f8f8f2">INPUT);</span>
+      <span style="color: #f8f8f2">pinMode(pot,</span> <span style="color: #f8f8f2">INPUT);</span>
+    <span style="color: #f8f8f2">}</span>
+    
+    <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">waardeLDR</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">analogRead(ldr);</span>
+      <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">waardePot</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">analogRead(pot);</span>
+      <span style="color: #75715e">//Serial.print(&quot;weerstand: &quot;);</span>
+      <span style="color: #75715e">//Serial.println(waardeLDR);</span>
+      <span style="color: #f8f8f2">Serial.print(</span><span style="color: #e6db74">&quot;Pot waarde: &quot;</span><span style="color: #f8f8f2">);</span>
+      <span style="color: #f8f8f2">Serial.println(waardePot);</span>
+      <span style="color: #66d9ef">if</span><span style="color: #f8f8f2">(waardeLDR</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">waardePot){</span>
+        <span style="color: #f8f8f2">state</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
+      <span style="color: #f8f8f2">}</span>
+      <span style="color: #66d9ef">if</span><span style="color: #f8f8f2">(waardeLDR</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">waardePot</span><span style="color: #f92672">+</span><span style="color: #ae81ff">50</span><span style="color: #f8f8f2">){</span>
+        <span style="color: #f8f8f2">state</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
+      <span style="color: #f8f8f2">}</span>
+      <span style="color: #f8f8f2">digitalWrite(led,</span> <span style="color: #f8f8f2">state);</span>
+      <span style="color: #75715e">//delay(500);</span>
+    <span style="color: #f8f8f2">}</span>
+    </pre></div>
+<br>
+<h1>Zonder hysterisis:</h1>
+<div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">ldr</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">A5;</span>
+    <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">led</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">9</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">pot</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">A3;</span>
+    
+    <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">Serial.begin(</span><span style="color: #ae81ff">9600</span><span style="color: #f8f8f2">);</span>
+      <span style="color: #f8f8f2">pinMode(led,</span> <span style="color: #f8f8f2">OUTPUT);</span>
+      <span style="color: #f8f8f2">pinMode(ldr,</span> <span style="color: #f8f8f2">INPUT);</span>
+      <span style="color: #f8f8f2">pinMode(pot,</span> <span style="color: #f8f8f2">INPUT);</span>
+    <span style="color: #f8f8f2">}</span>
+    
+    <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">waardeLDR</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">analogRead(ldr);</span>
+      <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">waardePot</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">analogRead(pot);</span>
+      <span style="color: #75715e">//Serial.print(&quot;weerstand: &quot;);</span>
+      <span style="color: #75715e">//Serial.println(waardeLDR);</span>
+      <span style="color: #75715e">//Serial.print(&quot;Pot waarde: &quot;);</span>
+      <span style="color: #75715e">//Serial.println(waardePot);</span>
+      <span style="color: #66d9ef">if</span><span style="color: #f8f8f2">(waardeLDR</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">waardePot){</span>
+        <span style="color: #f8f8f2">digitalWrite(led,</span> <span style="color: #f8f8f2">HIGH);</span>
+      <span style="color: #f8f8f2">}</span><span style="color: #66d9ef">else</span><span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">digitalWrite(led,</span> <span style="color: #f8f8f2">LOW);</span>
+      <span style="color: #f8f8f2">}</span>
+      <span style="color: #75715e">//delay(500);</span>
+    <span style="color: #f8f8f2">}</span>
+    </pre></div>
+    
